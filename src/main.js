@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const productsContainer = document.getElementById('Products'); // For digital products section's right column
 
     const blogsSection = document.getElementById('blogs-section'); // New blogs section
+    const horizontalScrollWrapper = document.querySelector('.horizontal-scroll-wrapper'); // Added this selector back
     const videoCardsContainer = document.querySelector('.horizontal-scroll-container'); // Select by class now
 
 
@@ -80,84 +81,93 @@ document.addEventListener('DOMContentLoaded', () => {
         // GSAP CODE FOR DIGITAL PRODUCTS SECTION (Pinning with Internal Scroll)
         // ===========================================
 
-        ScrollTrigger.create({
-            trigger: digitalProductsSection,
-            start: "top top",
-            end: () => {
-                const scrollableContentHeight = productsContainer.scrollHeight - productsContainer.clientHeight;
-                return `+=${scrollableContentHeight + 20}`; // Add a small buffer
-            },
-            pin: true,
-            pinSpacing: true,
-            // markers: true, // UNCOMMENT FOR DEBUGGING
-            onLeave: () => { /* optional cleanup */ },
-            onEnterBack: () => { /* optional cleanup */ }
-        });
+        // Ensure productsContainer has content to scroll
+        if (productsContainer) {
+            ScrollTrigger.create({
+                trigger: digitalProductsSection,
+                start: "top top", // When the digital products section hits the top of the viewport
+                end: () => {
+                    // Calculate the natural scroll height of the internal content
+                    const scrollableContentHeight = productsContainer.scrollHeight - productsContainer.clientHeight;
+                    // Pin for the duration of its content's scroll + a buffer
+                    return `+=${scrollableContentHeight + 50}`; // Add a small buffer
+                },
+                pin: true,
+                pinSpacing: true, // IMPORTANT: Creates space for the pinned section
+                // markers: true, // UNCOMMENT THIS FOR DEBUGGING!
+            });
+        }
 
 
         // ===========================================
         // GSAP CODE FOR MY BLOGS SECTION (Horizontal Scroll)
         // ===========================================
 
-        if (videoCardsContainer) { // Ensure the container exists
+        if (videoCardsContainer && horizontalScrollWrapper) { // Ensure containers exist
             // Calculate the total width of all cards + gaps
             let totalCardsWidth = videoCardsContainer.scrollWidth;
-            let wrapperWidth = videoCardsContainer.parentElement.clientWidth; // Width of the visible wrapper
+            let wrapperWidth = horizontalScrollWrapper.clientWidth; // Visible width of the wrapper
 
-            // The distance to translate the cards container
-            // We want to move it left by the amount that extends beyond the wrapper
-            // minus the wrapper's width, plus any gap to ensure the last card aligns.
             let moveDistance = totalCardsWidth - wrapperWidth;
 
-            // Get the computed gap value
-            const style = window.getComputedStyle(videoCardsContainer);
-            const gap = parseFloat(style.gap) || 0;
-
-            // Adjust moveDistance to account for the gap and ensure the last card is fully visible
-            // If there are N cards and N-1 gaps, the last gap might be partially off-screen.
-            // A common approach is to move by (total content width - viewport width)
-            // You might need to fine-tune this 'buffer' based on your exact card widths and gaps.
-            // For example, if you want the last card to align perfectly to the right edge.
-            // Let's try to align the start of the first card to the left and the end of the last card to the right.
-            // The animation will be from x: 0 to x: -moveDistance.
-
-            // If you want the *last* card to perfectly align to the right edge of the wrapper,
-            // the `x` value should be `-(totalCardsWidth - wrapperWidth)`.
-            // If there's a gap after the last card, you might need to subtract that.
-            // Let's use a simple calculation first and then debug with markers.
-
-            let blogsScrollTL = gsap.timeline({
-                scrollTrigger: {
-                    trigger: blogsSection,
-                    start: "top top", // Pin the blogs section when its top hits the viewport top
-                    end: () => `+=${moveDistance + gap * 2}`, // Pin for the duration of the horizontal scroll. Add buffer.
-                    scrub: 1, // Smoothly link animation to scroll
-                    pin: true, // Pin the entire blogs section
-                    pinSpacing: true, // Keep spacing so next section doesn't jump up
-                    // markers: true, // UNCOMMENT THIS FOR DEBUGGING!
-                    onLeave: () => {
-                        gsap.set(videoCardsContainer, { clearProps: "x" }); // Clear transform when unpinned
-                    },
-                    onEnterBack: () => {
-                        gsap.set(videoCardsContainer, { clearProps: "x" }); // Clear transform when entering back
+            // Only create the ScrollTrigger if there's actual content to scroll horizontally.
+            if (moveDistance > 0) {
+                let blogsScrollTL = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: blogsSection,
+                        start: "top top", // Pin the blogs section when its top hits the viewport top
+                        end: "bottom top", // Pin until the bottom of the section hits the viewport top (covers 200vh height)
+                        scrub: 1, // Smoothly link animation to scroll
+                        pin: true, // Pin the entire blogs section
+                        pinSpacing: true, // IMPORTANT: Keep spacing so next section doesn't jump up
+                        // markers: true, // UNCOMMENT THIS FOR DEBUGGING!
+                        onLeave: () => {
+                            // Clear transform when unpinned to prevent conflicts
+                            gsap.set(videoCardsContainer, { clearProps: "x" });
+                        },
+                        onEnterBack: () => {
+                            // Clear transform when entering back to prevent conflicts
+                            gsap.set(videoCardsContainer, { clearProps: "x" });
+                        }
                     }
-                }
-            });
+                });
 
-            blogsScrollTL.to(videoCardsContainer, {
-                x: -moveDistance, // Move to the left by the calculated distance
-                ease: "none" // Linear movement
-            });
+                blogsScrollTL.to(videoCardsContainer, {
+                    x: -moveDistance, // Move to the left by the calculated distance
+                    ease: "none" // Linear movement
+                });
+            } else {
+                console.log("Not enough cards for horizontal scroll animation or cards fit within wrapper.");
+            }
         }
-
     }); // End of mm.add for desktop
 
-    // Optional: Mobile/Tablet handling (uncomment and adjust if needed)
-    /*
+    // ===========================================
+    // GSAP MatchMedia for MOBILE Handling (Fixes for both issues)
+    // ===========================================
     mm.add("(max-width: 1079px)", () => {
+        // Kill ALL ScrollTriggers created on desktop
         ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-        gsap.set([heroImageWrapper, heroTextWrapper, digitalProductsSection, videoCardsContainer], { clearProps: "all" });
-        // Ensure mobile-specific CSS rules are active and desktop overrides are cleared for relevant sections
+        console.log("GSAP desktop animations killed for mobile viewport.");
+
+        // Clear any GSAP-applied inline styles that might interfere with mobile layout
+        // For hero section
+        gsap.set([heroImageWrapper, heroTextWrapper], { clearProps: "xPercent, scale, yPercent, opacity" });
+        // For digital products section
+        gsap.set(digitalProductsSection, { clearProps: "scale, yPercent, opacity, position, top, bottom, left, right" });
+        // For blogs section and its children
+        gsap.set(blogsSection, { clearProps: "position, top, bottom, left, right" }); // Clear pin styles
+        gsap.set(videoCardsContainer, { clearProps: "x, position, top, bottom, left, right" }); // Clear horizontal transform and absolute positioning
+
+
+        // Re-enable native horizontal scrolling for the blogs section on mobile
+        if (horizontalScrollWrapper) {
+            horizontalScrollWrapper.style.overflowX = 'auto'; // Enable native horizontal scroll
+            horizontalScrollWrapper.style.webkitOverflowScrolling = 'touch'; // For smoother iOS scrolling
+            // Ensure content isn't trying to be absolute on mobile
+            videoCardsContainer.style.position = 'static'; // Make sure it's back to normal flow
+            videoCardsContainer.style.transform = 'translateX(0)'; // Reset any inline transforms
+        }
+        console.log("Mobile specific styles applied: Horizontal scroll enabled for blogs.");
     });
-    */
 });

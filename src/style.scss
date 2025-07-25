@@ -1,0 +1,177 @@
+/* Basic/Global styles */
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+    font-size: clamp(1rem, 2.5vw, 2rem);
+}
+
+section {
+    padding: 1.7rem;
+}
+
+/* Optional: Add a blinking cursor effect */
+.typing-effect::after {
+    content: "|";
+    animation: blink-caret 0.75s infinite;
+}
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: white;
+    }
+}
+
+
+.product-card {
+    padding: 10px; // You can also use Tailwind's p-2 or p-4 here
+    width: 100%; // Handled by Tailwind's w-full max-w-sm
+    background-color: aquamarine; // This will override Tailwind's bg-gray-700
+    border-radius: 0.5rem; // Add border-radius here if not using Tailwind's rounded-lg
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Add a default shadow if not using Tailwind's shadow-xl
+
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; // Keep smooth transition
+
+    &:hover {
+        transform: translateY(-5px) scale(1.02); // Lift and slightly enlarge on hover
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3); // More prominent shadow
+    }
+
+    // Styles for elements *inside* the product card
+    img {
+        max-width: 100%;
+        height: 200px;
+        object-fit: contain;
+        margin-bottom: 15px;
+        border-radius: 0.5rem; // Optional: round product images
+    }
+
+    h5 {
+        font-weight: 700;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 1.5rem; // Or use Tailwind's text-2xl
+        color: #1e1b1b; // Adjust text color for aquamarine background
+        margin-bottom: 0.5rem;
+    }
+
+    p {
+        font-size: 0.875rem; // Corresponds to Tailwind's text-sm, or .7rem as you had
+        line-height: 1.5;
+        color: #ffffff; // Adjust text color for aquamarine background
+    }
+
+    ul {
+        list-style: none; // Ensure no default bullets
+        padding: 0;
+        margin-top: 10px;
+        margin-bottom: 10px;
+
+        li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.4rem;
+
+            span {
+                font-size: 1.2em;
+                line-height: 1;
+                margin-right: 0.5rem;
+                color: #007bff; // A nice contrast for bullets
+            }
+        }
+    }
+
+    .price {
+        font-size: 1.8rem; // Or use Tailwind's text-3xl
+        font-weight: bold;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        color: #333; // Adjust text color
+    }
+
+    a.join-button {
+        display: inline-block;
+        background-color: #007bff; // Example button color
+        color: white;
+        padding: 10px 20px;
+        border-radius: 9999px; // For full pill shape
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: #0056b3;
+        }
+    }
+}
+
+
+
+@media (min-width: 1080px) {
+    #digital-products {
+        flex-direction: row; // Main section itself becomes a row
+    }
+
+    #digital-products .section-title {
+        font-size: 2rem;
+    }
+
+    #Products{
+        height: auto;
+        // width: 60%; // These are commented out, so they won't apply.
+    }
+}
+
+.video-card {
+    
+    width: 500px; /* Fixed width for each card, adjust as desired */
+    height: 100%; /* Make cards fill height of their container */
+    flex-shrink: 0; /* Prevents cards from shrinking */
+    background-color: #2d3748; /* Darker gray for card background */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pushes content to top/bottom */
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+}
+
+.video-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.aspect-video {
+    aspect-ratio: 16 / 9; /* Standard video aspect ratio */
+}
+
+/* Responsive adjustments for video cards within the horizontal scroll */
+@media (max-width: 768px) {
+    .video-card {
+        width: 70vw; /* On smaller screens, make cards wider */
+    }
+    .horizontal-scroll-wrapper {
+        height: 350px; /* Adjust height for mobile if needed */
+    }
+}

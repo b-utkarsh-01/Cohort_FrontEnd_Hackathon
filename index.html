@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="./src/assets/logo.jpg" type="image/x-icon">
+    <title>MonkeyxMagic</title>
+    <link rel="stylesheet" href="./src/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+
+<body class="bg-gray-600 ">
+    <section class="h-screen w-full bg-gray-500 flex justify-center items-center overflow-hidden relative"
+        id="hero-section">
+        <div
+            class="w-full flex flex-col-reverse md:flex-row-reverse justify-center items-center gap-8 uppercase hero-content-container">
+            <div class="relative inline-block overflow-hidden w-full md:w-[50%] p-[2rem] hero-image-wrapper">
+                <img src="./src/assets/Ronak_Image.png"
+                    class="hidden md:block absolute top-0 right-0 scale-[.85] z-0 filter brightness-0 invert w-full h-full object-cover"
+                    alt="White Border" />
+
+                <img src="./src/assets/Ronak_Image.png"
+                    class="relative z-10 w-full max-w-[900px] sm:max-w-[550px] md:w-80 lg:w-80 h-auto mx-auto hero-main-image"
+                    alt="Main Image" />
+            </div>
+            <div
+                class="w-[50%] text- center md:text-left text-white flex flex-col items-center md:items-start hero-text-wrapper">
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl">Hello...</h1>
+                <p class="text-l sm:text-xl lg:text-2xl mt-2 text-green-200">
+                    <span id="typed-text" class="typing-effect"></span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="digital-products" class=" flex flex-col justify-between w-full  bg-gray-600 text-white relative z-10">
+        <div class="uppercase w-full sticky-header top-0 z-20 bg-gray-600">
+            <div>
+                <h2 class="text-center section-title text-4xl font-bold mb-4">Digital Products</h2>
+            </div>
+        </div>
+
+        <div id="Products" class="flex flex-col justify-center items-center md:items-stretch gap-8 ">
+            <div id="card-monkey-magic"
+                class="bg-gray-700 rounded-lg shadow-xl p-6 w-full flex flex-col items-center text-center product-card">
+                <h5 class="text-2xl font-semibold text-green-300">Monkey Magic <br>(Gang Gang)</h5>
+                <ul class="list-none p-0 mb-4 text-left">
+                    <li class="mb-2 flex items-start">
+                        <span class="text-green-300 mr-2">•</span>
+                        <p class="flex-1 text-sm">Loyalty badges next to your name in comments and live chat</p>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-green-300 mr-2">•</span>
+                        <p class="flex-1 text-sm">Custom emoji to use in comments and live chat</p>
+                    </li>
+                </ul>
+                <p class="text-3xl font-bold mb-4">₹59.00/month</p>
+                <a href="https://www.youtube.com/@MonkeyxMagic/featured" target="_blank"
+                    class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">Join
+                    Now</a>
+            </div>
+            <div id="card-melodies-of-india"
+                class="bg-gray-700 rounded-lg shadow-xl p-6 w-full max-w-sm flex flex-col items-center text-center product-card">
+                <h5 class="text-xl font-semibold mb-3 text-green-300">Melodies of India</h5>
+                <ul class="list-none p-0 mb-4 text-left">
+                    <li class="mb-2 flex items-start">
+                        <span class="text-green-300 mr-2">•</span>
+                        <p class="flex-1 text-xs">
+                            <i>Melody of India” is a heartfelt journey along the Ganga—from Gaumukh to Gangasagar—where
+                                Raunaq explores love, identity, and belonging through the timeless rhythms of India’s
+                                sacred river.</i>
+                        </p>
+                    </li>
+                </ul>
+                <p class="text-3xl font-bold mb-4">₹1,899</p>
+                <a href="https://www.youtube.com/@MonkeyxMagic/featured" target="_blank"
+                    class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold  px-8 rounded-full transition duration-300 transform hover:scale-105">Join
+                    Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="horizontal-scroll-section w-full flex flex-col bg-gray-800 py-8 px-4 relative z-10 top-[40%]"
+        id="blogs-section">
+        <div class="font-semibold text-white flex justify-center uppercase mb-6">
+            <h5 class="text-4xl">My Blogs</h5>
+        </div>
+
+        <div class="horizontal-scroll-wrapper overflow-hidden pb-4">
+            <div class="horizontal-scroll-container flex flex-row flex-nowrap gap-4">
+                <div class="video-card flex-shrink-0 rounded-lg overflow-hidden shadow-md">
+                    <img src="./src/assets/channels4_banner.jpg" class="w-full h-auto object-cover aspect-video">
+                    <div class="bg-gray-700 p-4">
+                        <h6 class="text-white font-semibold text-lg mb-2">Crossing India for Free (K2K)</h6>
+                        <p class="text-gray-400 text-sm">IN</p>
+                        <a href="https://www.youtube.com/watch?v=FPjLn-q9ZzQ&list=PLHFj7BL6bfvUDiwMvJEjkDD63b4WVSnSh"
+                        target="_blank"class="text-blue-400 text-sm hover:underline">View full playlist</a>
+                    </div>
+                </div>
+
+                <div class="video-card flex-shrink-0 rounded-lg overflow-hidden shadow-md">
+                    <img src="./src/assets/No_Plan_Japan!.jpg" class="w-full h-auto object-cover aspect-video"
+                        alt="Another Blog">
+                    <div class="bg-gray-700 p-4">
+                        <h6 class="text-white font-semibold text-lg mb-2">No Plan, Japan! <br> 🇯🇵</h6>
+                        <p class="text-gray-400 text-sm">Europe</p>
+                        <a href="https://www.youtube.com/watch?v=eA6U3w75rG4&list=PLHFj7BL6bfvWnbkBh8xAc4_3zlrDgBbQp" target="_blank" class="text-blue-400 text-sm hover:underline">View full playlist</a>
+                    </div>
+                </div>
+
+                <div class="video-card flex-shrink-0 rounded-lg overflow-hidden shadow-md">
+                    <img src="./src/assets/Melodies.jpg" class="w-full h-auto object-cover aspect-video"
+                        alt="Yet Another Blog">
+                    <div class="bg-gray-700 p-4">
+                        <h6 class="text-white font-semibold text-lg mb-2">Melodies of <br>India</h6>
+                        <p class="text-gray-400 text-sm">IN</p>
+                        <a href="https://www.youtube.com/watch?v=9xGlf83nd1Q&list=PLHFj7BL6bfvWf7tjM47qB0grt69OcvTrn" target="_blank" class="text-blue-400 text-sm hover:underline">View full playlist</a>
+                    </div>
+                </div>
+
+                <div class="video-card flex-shrink-0 rounded-lg overflow-hidden shadow-md">
+                    <img src="./src/assets/100_Days_Dreaming.jpg" class="w-full h-auto object-cover aspect-video"
+                        alt="Yet Another Blog">
+                    <div class="bg-gray-700 p-4">
+                        <h6 class="text-white font-semibold text-lg mb-2">
+                            100 Days of <br> Dreaming
+                        </h6>
+                        <p class="text-gray-400 text-sm">IN</p>
+                        <a href="https://www.youtube.com/watch?v=hx7MuN3jpcQ&list=PLHFj7BL6bfvVzirLnYheoPAWRLHC3Sp_R" target="_blank" class="text-blue-400 text-sm hover:underline">View full playlist</a>
+                    </div>
+                </div>
+
+                <div class="video-card flex-shrink-0 rounded-lg overflow-hidden shadow-md">
+                    <img src="./src/assets/Best_of_Magic.jpg" class="w-full h-auto object-cover aspect-video"
+                        alt="Yet Another Blog">
+                    <div class="bg-gray-700 p-4">
+                        <h6 class="text-white font-semibold text-lg mb-2">
+                            Best of Monkey <br> Magic 
+                        </h6>
+                        <p class="text-gray-400 text-sm">IN</p>
+                        <a href="https://www.youtube.com/watch?v=czNtKz7Vgso&list=PLHFj7BL6bfvVmjhWAf22N-2paV8kg6MGY" target="_blank" class="text-blue-400 text-sm hover:underline">View full playlist</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="mt-[20%] bg-gray-900 text-gray-400 py-8 px-4">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="footer-section">
+                <h3 class="text-xl font-bold text-white mb-4">About MonkeyxMagic</h3>
+                <p class="text-sm leading-relaxed">
+                    Connecting with our audience through digital products and engaging content.
+                    We aim to bring magic to your screens and experiences.
+                </p>
+            </div>
+
+            <div class="footer-section flex flex-col justify-center items-center">
+                <h3 class="text-xl font-bold text-white mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="#hero-section" class="hover:text-white transition-colors duration-200">Home</a></li>
+                    <li><a href="#digital-products" class="hover:text-white transition-colors duration-200">Products</a>
+                    </li>
+                    <li><a href="#blogs-section" class="hover:text-white transition-colors duration-200">Blogs</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors duration-200">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3 class="text-xl font-bold text-white mb-4">Connect With Us</h3>
+                <div class="flex  items-center ">
+
+                    <a href="https://www.youtube.com/@MonkeyxMagic?app=desktop" target="_blank"
+                        class="text-gray-400 hover:text-white transition-colors duration-200 h-[2.5rem]">
+                        <svg xmlns="http://www.w3.org/2000/svg" id="yt-ringo2-svg_yt24" width="93" height="40"
+                            viewBox="0 0 93 20" focusable="false" aria-hidden="true"
+                            style="pointer-events: none; display: inherit; width: 100%; height: 100%;">
+                            <g>
+                                <path
+                                    d="M14.4848 20C14.4848 20 23.5695 20 25.8229 19.4C27.0917 19.06 28.0459 18.08 28.3808 16.87C29 14.65 29 9.98 29 9.98C29 9.98 29 5.34 28.3808 3.14C28.0459 1.9 27.0917 0.94 25.8229 0.61C23.5695 0 14.4848 0 14.4848 0C14.4848 0 5.42037 0 3.17711 0.61C1.9286 0.94 0.954148 1.9 0.59888 3.14C0 5.34 0 9.98 0 9.98C0 9.98 0 14.65 0.59888 16.87C0.954148 18.08 1.9286 19.06 3.17711 19.4C5.42037 20 14.4848 20 14.4848 20Z"
+                                    fill="#FF0033"></path>
+                                <path d="M19 10L11.5 5.75V14.25L19 10Z" fill="white"></path>
+                            </g>
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/monkeyxmagic/" target="_blank"
+                        class="text-gray-400 hover:text-white transition-colors duration-200">
+                        <img src="./src/assets/instaIcon.png" alt="Instagram" class="h-6 w-6">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </footer>
+    <script src="./src/main.js"></script>
+    <!-- <script src="./src/script.js"></script> -->
+    <script src="./src/mouseeffect.js"></script>
+</body>
+
+</html>
